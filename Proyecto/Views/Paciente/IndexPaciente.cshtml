@@ -1,0 +1,106 @@
+﻿@using Proyecto.Clases;
+@model IEnumerable<PacienteInicioCLS>
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor context;
+@inject IHttpContextAccessor cpaciente;
+@{
+    ViewData["Title"] = "IndexPaciente";
+    string encabezado = ViewBag.encabezado;
+    string nompaciente = ViewBag.nompaciente;
+    cpaciente.HttpContext.Session.SetString("doctor", context.HttpContext.Session.GetString("doctor"));
+    cpaciente.HttpContext.Session.SetString("clvdoctor", context.HttpContext.Session.GetString("clvdoctor"));
+
+    if (context.HttpContext.Session.GetString("sesion").Equals("1"))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_LayoutU";
+    }
+}
+
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Pacientes</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">Paciente</li>
+        <li class="breadcrumb-item active">Consultar</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Información de los Pacientes
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.clvpaciente)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.nompaciente)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.procedencia)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.descripcion)
+                        </th>
+                       
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (PacienteInicioCLS paciente in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @paciente.clvpaciente
+                            <td>
+                                @paciente.nompaciente
+                            </td>
+                            <td>
+                                @paciente.procedencia
+                            </td>
+                            <td>
+                                @paciente.descripcion
+                            </td>
+                           
+                            <td><a asp-action="EditarPaciente" asp-controller="Paciente" asp-route-id="@paciente.clvpaciente"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                            <td><a href="#" onclick="Eliminar(@paciente.clvpaciente, @paciente.medicamento)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<form asp-action="EliminarPaciente" asp-controller="Paciente" method="post" id="frmEliminar">
+    <input type="hidden" id="txtclvpaciente" name="clvpaciente" /> <!--aqui lo ocultamos ya que no es necesario que se vea-->
+    <input type="hidden" id="txtmedicamento" name="medicamento" />
+</form>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+<script>
+    function Eliminar(clvpaciente, medicamento) {
+        document.getElementById("txtclvpaciente").value = clvpaciente;
+        document.getElementById("txtmedicamento").value = medicamento;
+        mostrarModal().then((res) => {
+            if (res.isConfirmed) {
+                var frmEliminar = document.getElementById("frmEliminar");
+                frmEliminar.submit();
+            }
+        })
+    }
+</script>
+
+

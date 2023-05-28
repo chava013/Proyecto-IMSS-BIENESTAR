@@ -1,0 +1,79 @@
+﻿@using Proyecto.Clases;
+@model IEnumerable<RecetaCLS>
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor context;
+@{
+    ViewData["Title"] = "IndexReceta";
+    string encabezado = ViewBag.encabezado;
+    string nomdoctor = ViewBag.nomdoctor;
+    string nompaciente = ViewBag.nompaciente;
+    if (context.HttpContext.Session.GetString("sesion").Equals("1"))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_LayoutU";
+    }
+}
+
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Receta</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">Receta</li>
+        <li class="breadcrumb-item active">Consultar</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Recetas
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.clvreceta)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.fechaelab)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.clvdoctor)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.clvpaciente)
+                        </th>
+                        <th>Imprimir</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (RecetaCLS receta in Model)
+                    {
+                        <tr>
+                            <td>
+                                @receta.clvreceta
+                            <td>
+                                @receta.fechaelab
+                            </td>
+                            <td>
+                                @receta.clvdoctor
+                            </td>
+                            <td>
+                                @receta.clvpaciente
+                            </td>
+                            
+                            <td><a asp-action="ImprimirReceta" asp-controller="Receta" asp-route-id="@receta.clvreceta"><i class="far fa-file-alt" aria-hidden="true"></i></a></td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>

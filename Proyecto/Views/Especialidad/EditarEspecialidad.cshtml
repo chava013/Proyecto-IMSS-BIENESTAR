@@ -1,0 +1,39 @@
+﻿@model Proyecto.Clases.EspecialidadCLS
+@{
+    ViewData["Title"] = "EditarEspecialidad";
+}
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Actualizar Especialidad</h3></div>
+                <div class="card-body">
+                    <form method="post" asp-action="ActualizarEspecialidad" asp-controller="Especialidad" onsubmit="return submitForm(this);">
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="clvespecialidad" type="hidden" />
+                            <input class="form-control" asp-for="especialidad" id="inputEspecialidad" placeholder="Ingresa la especialidad" />
+                            <label for="inputEspecialidad" class="control-label" asp-for="especialidad">Especialidad</label>
+                            <span asp-validation-for="especialidad" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="mt-4 mb-0">
+                            <div class="d-grid"><input type="submit" class="btn btn-primary btn-block" value="Actualizar" /></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+
+
+

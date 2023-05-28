@@ -1,0 +1,84 @@
+﻿@using Proyecto.Clases;
+@model MedicamentoCLS;
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor context;
+@{
+    ViewData["Title"] = "EditarMedicamento";
+    List<SelectListItem> listaNom = ViewBag.listaNom;
+    List<SelectListItem> listaTipo = ViewBag.listaTipo;
+    ViewData["Title"] = "Home Page";
+    if (context.HttpContext.Session.GetString("sesion").Equals("1"))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_LayoutU";
+    }
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Actualizar Medicamento</h3></div>
+                <div class="card-body">
+                    <form method="post" asp-action="ActualizarMedicamento" asp-controller="Medicamento" onsubmit="return submitForm(this);">
+                        <input asp-for="clvmedicamento" type="hidden" />
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3 mb-md-0">
+                                    @Html.DropDownList("clvnommedicamento", listaNom, new { @class = "form form-control", @id = "inputNombre" })
+                                    <label for="inputNombre" asp-for="clvnommedicamento">Nombre</label>
+                                    <span asp-validation-for="clvnommedicamento" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.DropDownList("clvtipo", listaTipo, new { @class = "form form-control", @id = "inputTipo" })
+                                    <label for="inputTipo" asp-for="clvtipo">Tipo</label>
+                                    <span asp-validation-for="clvtipo" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" min="0" type="number" asp-for="existencias" id="inputExistencias" placeholder="Ingrese las existencias" />
+                                    <label for="inputExistencias" class="control-label" asp-for="existencias">Existencias</label>
+                                    <span asp-validation-for="existencias" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" asp-for="contenido" id="inputContenido" placeholder="Específica el contenido" />
+                                    <label for="inputContenido" class="control-label" asp-for="contenido">Contenido</label>
+                                    <span asp-validation-for="contenido" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="date" asp-for="fechacaducidad" id="inputFecha" placeholder="Ingresa la fecha de caducidad" />
+                                <label for="inputFecha" class="control-label" asp-for="fechacaducidad">Fecha de Caducidad</label>
+                                <span asp-validation-for="fechacaducidad" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="mt-4 mb-0">
+                            <div class="d-grid"><input type="submit" class="btn btn-primary btn-block" value="Actualizar" /></div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+
+
+

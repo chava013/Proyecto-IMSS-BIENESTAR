@@ -1,0 +1,135 @@
+﻿@using Proyecto.Clases;
+
+@model List<MedicrecetasCLS>
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor receta;
+@inject IHttpContextAccessor context;
+@{
+    List<SelectListItem> lista = ViewBag.lista;
+    ViewData["Title"] = "AgregarRecetaMedi";
+    Layout = "_LayoutU";
+    if (context.HttpContext.Session.GetString("sesion").Equals("1"))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_LayoutU";
+    }
+    receta.HttpContext.Session.SetString("clvdoctor", context.HttpContext.Session.GetString("clvdoctor"));
+    int cantidad = Int32.Parse(receta.HttpContext.Session.GetString("medicamento"));
+    // List<SelectListItem> listaMed = ViewBag.listaMed;
+    string error = receta.HttpContext.Session.GetString("error");
+}
+
+@if (error != null)
+{
+    <body onload="alerta()">
+    </body>
+}
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Agregar Medicamentos</h3></div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <form method="post" asp-action="GuardarReceta" asp-controller="Receta" onsubmit="return submitForm(this);">
+                                    @for (int i = 0; i < cantidad; i++)
+
+                                    {
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+
+                                                    <input class="form-control" min="0" asp-for="@Model[i].clvmedicamento" id="inputMedicamento" placeholder="Clave del medicamento" />
+                                                    <label for="inputMedicamento" asp-for="@Model[i].clvmedicamento">Clave del Medicamento</label>
+                                                    <span asp-validation-for="@Model[i].clvmedicamento" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input class="form-control" min="1" asp-for="@Model[i].cantidad" id="inputCantidad" placeholder="Cantidad" />
+                                                    <label for="inputTCantidad" asp-for="@Model[i].cantidad">Cantidad</label>
+                                                    <span asp-validation-for="@Model[i].cantidad" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" asp-for="@Model[i].descripcion" id="inputDescripcion" placeholder="Descripción de Consumo" />
+                                            <label for="inputDescripcion" class="control-label" asp-for="@Model[i].descripcion">Descripción de Consumo</label>
+                                            <span asp-validation-for="@Model[i].descripcion" class="text-danger"></span>
+                                        </div>
+                                    }
+
+
+
+
+
+                                    <div class="mt-4 mb-0">
+                                        <div class="d-grid"><input type="submit" class="btn btn-primary btn-block" value="Guardar" /></div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <table id="datatablesSimple">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Medicamento
+                                                </th>
+
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @for (int i = 0; i < lista.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @lista[i].Text
+                                                    </td>
+
+
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+<form asp-action="EliminarEspecialidad" asp-controller="Especialidad" method="post" id="frmEliminar">
+    <input type="hidden" id="txtclvespecialidad" name="clvespecialidad" /> <!--aqui lo ocultamos ya que no es necesario que se vea-->
+</form>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+
+
+<script>
+        function alerta() {
+            alert("Compruebe que las claves existan");
+    }
+</script>
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+
+

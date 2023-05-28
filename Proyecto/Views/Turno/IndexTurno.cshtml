@@ -1,0 +1,80 @@
+﻿@using Proyecto.Clases;
+@model IEnumerable<TurnoCLS>
+@{
+    ViewData["Title"] = "IndexTurno";
+}
+
+
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Turno</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">Turno</li>
+        <li class="breadcrumb-item active">Consultar</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Información del Turno
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.clvturno)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.turno)
+                        </th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (TurnoCLS turno in Model)
+                    {
+                        <tr>
+                            <td>
+                                @turno.clvturno
+                            <td>
+                                @turno.turno
+                            </td>
+
+                            <td><a asp-action="EditarTurno" asp-controller="Turno" asp-route-id="@turno.clvturno"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                            <td><a href="#" onclick="Eliminar(@turno.clvturno)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+
+
+<form asp-action="EliminarTurno" asp-controller="Turno" method="post" id="frmEliminar">
+    <input type="hidden" id="txtclvturno" name="clvturno" /> <!--aqui lo ocultamos ya que no es necesario que se vea-->
+</form>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+<script>
+    function Eliminar(clvturno) {
+        document.getElementById("txtclvturno").value = clvturno;
+        mostrarModal().then((res) => {
+            if (res.isConfirmed) {
+                var frmEliminar = document.getElementById("frmEliminar");
+                frmEliminar.submit();
+            }
+        })
+    }
+</script>
+

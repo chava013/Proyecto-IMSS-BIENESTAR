@@ -1,0 +1,164 @@
+﻿@using Proyecto.Clases;
+@{
+    ViewData["Title"] = "ImprimirReceta";
+    Layout = null;
+    DoctorCLS doctor = ViewBag.doctor;
+    PacienteInicioCLS paciente = ViewBag.paciente;
+    List<MedicrecetasCLS> med = ViewBag.med;
+    RecetaCLS receta = ViewBag.receta;
+}
+
+<!DOCTYPE html>
+<html lang="en" id="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <!--ICONOS BOOSTRAP-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <!-- CSS only -->
+    <!-- Our Custom CSS -->
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Font Awesome JS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <title>RECETA</title>
+</head>
+<body id="avance">
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark " id="headerNav">
+            <div class="container-fluid">
+
+
+                <div class=" collapse navbar-collapse">
+                    <ul class="navbar-nav mx-auto ">
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link mx-2" href="#">
+                                <img src="~/assets/img/IMSS_Bienestar.svg.png" height="60" />
+                            </a>
+                        </li>
+                        <li class="nav-item" style="font-weight: bold;text-align: center;line-height: 1px; padding-top: 10px;">
+                            <a class="nav-link mx-2" style="color: black; font-size: 9px;">@doctor.nomdoctor</a>
+                            <a class="nav-link mx-2" style="color: black;font-size: 8px;">@doctor.clvespecialidad</a>
+                            <a class="nav-link mx-2" style="color: black;font-size: 8px;">Palo Alto, Mich</a>
+                        </li>
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link mx-2" href="#">
+                                <img src="~/assets/img/IMSS_Bienestar.svg.png" height="60" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="wrapper">
+        <div id="content">
+            <!--Table-->
+
+            <h6 style="text-align: center;font-size: 8px;text-decoration: underline;"> PACIENTE: @paciente.nompaciente</h6>
+            <h6 style="text-align: center;font-size: 8px;text-decoration: underline;"> DESCRIPCIÓN: @paciente.descripcion</h6>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <!--  class="active" -->
+                            <div class="card-body">
+
+                                <table class="table-striped table-responsive" style="text-align: center;font-size: 10px;">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                MEDICAMENTO
+                                            </th>
+                                            <th>
+                                                APLICACIÓN
+                                            </th>
+
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @for (int i = 0; i < med.Count; i++)
+                                        {
+                                            <tr>
+
+                                                <td>
+                                                    @med[i].clvmedicamento
+                                                </td>
+
+                                                <td>
+                                                    @med[i].descripcion
+                                                </td>
+                                               
+                                            </tr>
+                                        }
+                                        </tbody>
+                                </table>
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding-top: 20px;padding-bottom: 30px;">
+        <h6 style="font-size:8px;">PALTO&nbsp;ALTO,&nbsp;MUNICIPIO&nbsp;DE&nbsp;COJUMATLAN,&nbsp;MICH., @receta.fechaelab</h6>
+        <h6 style="font-size:8px;">
+
+            NOMBRE&nbsp;Y&nbsp;FIRMA&nbsp;DEL&nbsp;DOCTOR(A)&nbsp;DE&nbsp;LA&nbsp;INSTITUCIÓN
+        </h6>
+        <h6 style="font-size:8px;padding-top: 50px;">__________________________________________</h6>
+    </div>
+    </div>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.1/html2pdf.bundle.min.js"></script>
+    <script src="VIEWS/js/pdf.js"></script>
+    <script>
+        let element = document.getElementById('avance')
+        html2pdf(element, {
+            margin: 10,
+            filename: 'receta.pdf',
+            image: {
+                type: 'jpeg',
+                quality: 0.98
+            },
+            html2canvas: {
+                scale: -10, // A mayor escala, mejores gráficos, pero más peso
+                letterRendering: true,
+                logging: true,
+                dpi: 192
+            },
+            jsPDF: {
+                unit: "mm",
+                format: "a4",
+                orientation: 'portrait' // landscape o portrait
+            }
+        })
+    </script>
+</body>
+
+</html>

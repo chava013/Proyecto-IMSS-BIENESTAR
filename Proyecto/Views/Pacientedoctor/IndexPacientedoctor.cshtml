@@ -1,0 +1,35 @@
+﻿@using Proyecto.Clases;
+@model IEnumerable<PacientedoctorCLS>
+@{
+    ViewData["Title"] = "IndexPacientedoctor";
+}
+
+<h1>IndexPacientedoctor</h1>
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.clvpaciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.clvdoctor)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PacientedoctorCLS pc in Model)
+        {
+            <tr>
+                <td>
+                    @pc.clvpaciente
+                <td>
+                    @pc.clvdoctor
+                </td>
+
+            </tr>
+        }
+    </tbody>
+
+
+</table>
+

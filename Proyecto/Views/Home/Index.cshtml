@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor context;
+@{
+    ViewData["Title"] = "Home Page";
+    if (context.HttpContext.Session.GetString("sesion").Equals("1"))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_LayoutU";
+    }
+}
+
+<div class="text-center">
+    
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

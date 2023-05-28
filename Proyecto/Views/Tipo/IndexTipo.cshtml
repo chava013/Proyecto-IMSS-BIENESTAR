@@ -1,0 +1,79 @@
+﻿@using Proyecto.Clases;
+@model IEnumerable<TipoCLS>
+@{
+    ViewData["Title"] = "IndexTipo";
+}
+
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Tables</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">Tipo</li>
+        <li class="breadcrumb-item active">Consultar</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Información de los Tipos
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.clvtipo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.tipo)
+                        </th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (TipoCLS tipo in Model)
+                    {
+                        <tr>
+                            <td>
+                                @tipo.clvtipo
+                            <td>
+                                @tipo.tipo
+                            </td>
+
+                            <td><a asp-action="EditarTipo" asp-controller="Tipo" asp-route-id="@tipo.clvtipo"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                            <td><a href="#" onclick="Eliminar(@tipo.clvtipo)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+
+
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+
+
+<form asp-action="EliminarTipo" asp-controller="Tipo" method="post" id="frmEliminar">
+    <input type="hidden" id="txtclvtipo" name="clvtipo" /> <!--aqui lo ocultamos ya que no es necesario que se vea-->
+</form>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+<script>
+    function Eliminar(clvtipo) {
+        document.getElementById("txtclvtipo").value = clvtipo;
+        mostrarModal().then((res) => {
+            if (res.isConfirmed) {
+                var frmEliminar = document.getElementById("frmEliminar");
+                frmEliminar.submit();
+            }
+        })
+    }
+</script>

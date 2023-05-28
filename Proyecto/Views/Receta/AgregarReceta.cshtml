@@ -1,0 +1,71 @@
+﻿@using Proyecto.Clases;
+@model PacienteInicioCLS;
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor context;
+@{
+    ViewData["Title"] = "AgregarReceta";
+    if (context.HttpContext.Session.GetString("sesion").Equals("1"))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_LayoutU";
+    }
+}
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Receta Médica</h3></div>
+                <div class="card-body">
+                    <form method="post" asp-action="AgregarReceta" asp-controller="Receta" onsubmit="return submitForm(this);">
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" asp-for="nompaciente" id="inputNombre" placeholder="nombre y apellidos" />
+                            <label for="inputNombre" class="control-label" asp-for="nompaciente">Nombre completo</label>
+                            <span asp-validation-for="nompaciente" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" asp-for="descripcion" id="inputDescripcion" placeholder="Descripción" />
+                            <label for="inputDescripcion" class="control-label" asp-for="descripcion">Descripcion</label>
+                            <span asp-validation-for="descripcion" class="text-danger"></span>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" asp-for="procedencia" id="inputProcedencia" placeholder="Procedencia" />
+                                    <label for="inputProcedencia" class="control-label" asp-for="procedencia">Procedencia</label>
+                                    <span asp-validation-for="procedencia" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input class="form-control" type="number" min="1" asp-for="medicamento" id="inputMedicamento" placeholder="Descripción" />
+                                    <label for="inputMedicamento" asp-for="medicamento">Cantidad de medicamentos a recetar</label>
+                                    <span asp-validation-for="medicamento" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="mt-4 mb-0">
+                            <div class="d-grid"><input type="submit" class="btn btn-primary btn-block" value="Continuar" /></div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+

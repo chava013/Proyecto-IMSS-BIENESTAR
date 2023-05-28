@@ -1,0 +1,36 @@
+﻿@using Proyecto.Clases;
+@model IEnumerable<DescripacienteCLS>
+@{
+    ViewData["Title"] = "IndexDescripaciente";
+    string encabezado = ViewBag.encabezado;
+}
+
+<h1>@encabezado</h1>
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.clvpaciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DescripacienteCLS des in Model)
+        {
+            <tr>
+                <td>
+                    @des.clvpaciente
+                <td>
+                    @des.descripcion
+                </td>
+
+            </tr>
+        }
+    </tbody>
+
+
+</table>
+

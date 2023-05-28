@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+		<script>
+			$(document).ready(function(){
+	    		$('#Python').click(function(){
+	       		$("#contenido").load("c_python.html");
+	    									 });
+
+	    		$('#Django').click(function(){
+	       		$("#contenido").load("c_django.html");
+	    									 });
+
+	    		$('#Jython').click(function(){
+	       		$("#contenido").load("c_jython.html");
+	    									 });
+										});
+		</script>
+	</head>
+	<body>
+	<a href="#" id="Python">Python</a>
+	<a href="#" id="Django">Django</a>
+	<a href="#" id="Jython">Jython</a>
+		<br>
+		<table border="1">
+			<tr>
+				<td>
+					Hola gente soy
+				</td>
+				<td id ="contenido">
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

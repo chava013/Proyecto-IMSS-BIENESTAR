@@ -1,0 +1,58 @@
+﻿@using Proyecto.Clases;
+@model DoctorCLS;
+@{
+    ViewData["Title"] = "Agregar";
+    List<SelectListItem> listaEspecialidad = ViewBag.listaEspecialidad;
+    List<SelectListItem> listaTurno = ViewBag.listaTurno;
+
+   
+}
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Agregar Médico</h3></div>
+                <div class="card-body">
+                    <form method="post" asp-action="AgregarDoctor" asp-controller="Doctor" onsubmit="return submitForm(this);">
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" asp-for="nomdoctor" id="inputNombre" placeholder="nombre y apellidos" />
+                            <label for="inputNombre" class="control-label" asp-for="nomdoctor">Nombre completo</label>
+                            <span asp-validation-for="nomdoctor" class="text-danger"></span>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3 mb-md-0">
+                                    @Html.DropDownList("clvespecialidad", listaEspecialidad, new { @class = "form form-control", @id = "inputEspecialidad" })
+                                    <label for="inputEspecialidad" asp-for="clvespecialidad">Especialidad</label>
+                                    <span asp-validation-for="clvespecialidad" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.DropDownList("clvturno", listaTurno, new { @class = "form form-control", @id = "inputTurno" })
+                                    <label for="inputTurno" asp-for="clvturno">Turno</label>
+                                    <span asp-validation-for="clvturno" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mt-4 mb-0">
+                            <div class="d-grid"><input type="submit" class="btn btn-primary btn-block" value="Agregar" /></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                    <div class="small">El usuario y contraseña se crean en automático</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+

@@ -1,0 +1,86 @@
+﻿@using Proyecto.Clases;
+@model IEnumerable<DoctorCLS>
+@{
+    ViewData["Title"] = "IndexDoctor";
+    string encabezado = ViewBag.encabezado;
+    string nomdoctor = ViewBag.nomdoctor;
+}
+
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Doctor</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">Médico</li>
+        <li class="breadcrumb-item active">Consultar</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            @encabezado
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.clvdoctor)</th>
+                        <th>@Html.DisplayNameFor(model => model.nomdoctor)</th>
+                        <th>@Html.DisplayNameFor(model => model.clvturno)</th>
+                        <th>@Html.DisplayNameFor(model => model.clvespecialidad)</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.clvdoctor)</th>
+                        <th>@Html.DisplayNameFor(model => model.nomdoctor)</th>
+                        <th>@Html.DisplayNameFor(model => model.clvturno)</th>
+                        <th>@Html.DisplayNameFor(model => model.clvespecialidad)</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (DoctorCLS doctor in Model)
+                    {
+                        <tr>
+                            <td>
+                                @doctor.clvdoctor
+                            <td>
+                                @doctor.nomdoctor
+                            </td>
+                            <td>
+                                @doctor.clvturno
+                            </td>
+                            <td>
+                                @doctor.clvespecialidad
+                            </td>
+                            <td><a asp-action="EditarDoctor" asp-controller="Doctor" asp-route-id="@doctor.clvdoctor"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                            <td><a href="#" onclick="Eliminar(@doctor.clvdoctor)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<form asp-action="EliminarDoctor" asp-controller="Doctor" method="post" id="frmEliminar">
+    <input type="hidden" id="txtclvdoctor" name="clvdoctor" /> <!--aqui lo ocultamos ya que no es necesario que se vea-->
+</form>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/alerts.js"></script>
+<script>
+    function Eliminar(clvdoctor) {
+        document.getElementById("txtclvdoctor").value = clvdoctor;
+        mostrarModal().then((res) => {
+            if (res.isConfirmed) {
+                var frmEliminar = document.getElementById("frmEliminar");
+                frmEliminar.submit();
+            }
+        })
+    }
+</script>
